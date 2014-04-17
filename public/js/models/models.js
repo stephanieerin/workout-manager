@@ -9,7 +9,9 @@ window.Workout = Backbone.Model.extend({
 
 	defaults: {
 		_id: null,
-		title: ""
+		distance: 0,
+		title: "",
+		type: "run"
 	}
 });
 

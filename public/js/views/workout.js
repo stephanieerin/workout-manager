@@ -4,8 +4,8 @@ window.WorkoutView = Backbone.View.extend({
 		'<h1><% if(_id != null){print("Edit");} else {print("Add a");}%> Workout</h1>'+
 		'<form role="form" id="workout">'+
 			'<div class="form-group">'+
-				'<label for="title">Title</label>'+
-				'<input class="form-control" id="title" name="title" type="text" value="<%= title %>" placeholder="Title" />'+
+				'<label for="Distance">Distance</label>'+
+				'<input class="form-control" id="distance" name="distance" type="number" value="<%= distance %>" />'+
 			'</div>'+
 			'<a href="#" class="btn btn-primary save">Save</a>'+
 			'<a href="#" class="btn btn-default delete">Delete</a>'+

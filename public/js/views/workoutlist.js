@@ -18,7 +18,7 @@ window.WorkoutListView = Backbone.View.extend({
 
 window.WorkoutListItemView = Backbone.View.extend({
 
-	template: _.template('<a href="#workouts/<%= _id %>"><%= title %></a>'),
+	template: _.template('<a href="#workouts/<%= _id %>"><%= distance %></a>'),
 
 	initialize: function(){
 
