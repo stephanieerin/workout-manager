@@ -1,7 +1,7 @@
 var express = require('express'),
 	path = require('path'),
 	http = require('http'),
-	entry = require('./routes/entries');
+	entry = require('./routes/workouts');
 
 var app = express();
 
@@ -12,11 +12,11 @@ app.configure(function() {
 	app.use(express.static(path.join(__dirname, 'public')));
 });
 
-app.get('/entries', entry.findAll);
-app.get('/entries/:id', entry.findById);
-app.post('/entries', entry.addEntry);
-app.put('/entries/:id', entry.updateEntry);
-app.delete('/entries/:id', entry.deleteEntry);
+app.get('/workouts', entry.findAll);
+app.get('/workouts/:id', entry.findById);
+app.post('/workouts', entry.addEntry);
+app.put('/workouts/:id', entry.updateEntry);
+app.delete('/workouts/:id', entry.deleteEntry);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log("Express server listening on port " + app.get('port'));

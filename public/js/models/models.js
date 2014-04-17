@@ -1,5 +1,5 @@
-window.Entry = Backbone.Model.extend({
-	urlRoot: "/entries",
+window.Workout = Backbone.Model.extend({
+	urlRoot: "/workouts",
 
 	idAttribute: "_id",
 
@@ -13,7 +13,7 @@ window.Entry = Backbone.Model.extend({
 	}
 });
 
-window.EntryCollection = Backbone.Collection.extend({
-	model.Entry,
-	url: "/entries"
+window.WorkoutCollection = Backbone.Collection.extend({
+	model: Workout,
+	url: "/workouts"
 });

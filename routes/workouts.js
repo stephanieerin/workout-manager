@@ -10,10 +10,10 @@ db = new Db('workoutdb', server, {safe: true});
 db.open(function(err, db){
 	if(!err){
 		console.log("Connected to 'workoutdb' database");
-		db.collection('entries', {safe: true}, function(err, collection){
+		db.collection('workouts', {safe: true}, function(err, collection){
 			if(err) {
-				console.log("The 'entries' collection doesn't exist. Creating it with sample data...");
-				//populateDB();
+				console.log("The 'workouts' collection doesn't exist. Creating it with sample data...");
+				populateDB();
 			}
 		});
 	}
@@ -22,7 +22,7 @@ db.open(function(err, db){
 exports.findById = function(req, res){
 	var id = req.params.id;
 	console.log('Retreiving entry ' + id);
-	db.collection('entries', function(err, collection){
+	db.collection('workouts', function(err, collection){
 		collection.findOne({'_id':new BSON.ObjectID(id)}, function(err, item){
 			res.send(item);
 		});
@@ -30,7 +30,7 @@ exports.findById = function(req, res){
 };
 
 exports.findAll = function(req, res){
-	db.collection('entries', function(err, collection){
+	db.collection('workouts', function(err, collection){
 		collection.find().toArray(function(err, items){
 			res.send(items);
 		});
@@ -40,7 +40,7 @@ exports.findAll = function(req, res){
 exports.addEntry = function(req, res){
 	var entry = req.body;
 	console.log('Adding entry: ' + JSON.stringify(entry));
-	db.collection('entries', function(err, collection){
+	db.collection('workouts', function(err, collection){
 		collection.insert(entry, {safe: true}, function(err, result){
 			if (err) {
 				res.send({'error':'An error has occurred'});
@@ -58,7 +58,7 @@ exports.updateEntry = function(req, res){
 	delete entry._id;
 	console.log('Updating entry: ' + id);
 	console.log(JSON.stringify(entry));
-	db.collection('entries', function(err, collection){
+	db.collection('workouts', function(err, collection){
 		collection.update({'_id':new BSON.ObjectID(id)}, entry, {safe:true}, function(err, result){
 			if(err){
 				console.log('Error updating entry: ' + err);
@@ -74,7 +74,7 @@ exports.updateEntry = function(req, res){
 exports.deleteEntry = function(req, res){
 	var id = req.params.id;
 	console.log('Deleting entry: ' + id);
-	db.collection('entries', function(err, collection){
+	db.collection('workouts', function(err, collection){
 		collection.remove({'_id': new BSON.ObjectID(id)}, {safe:true}, function(err, result){
 			if (err) {
 				res.send({'error': 'An error has occurred'});
@@ -87,21 +87,17 @@ exports.deleteEntry = function(req, res){
 };
 
 
-// var populateDB = function() {
-// 	var entries = [
-// 	{
-// 		title: "Gross Monday",
-// 		body: "Mondays are the worst.",
-// 		date: "2010.01.01"
-// 	},
-// 	{
-// 		title: "Friday Friday Friday",
-// 		body: "Everyone get down on Friday!",
-// 		date: "2010.01.01"
-// 	}
-// 	];
+var populateDB = function() {
+	var workouts = [
+	{
+		title: "Monday",
+	},
+	{
+		title: "Friday Friday Friday",
+	}
+	];
 
-// 	db.collection('entries', function(err, collection){
-// 		collection.insert(entries, {safe:true}, function(err, result){});
-// 	});
-// };
+	db.collection('workouts', function(err, collection){
+		collection.insert(workouts, {safe:true}, function(err, result){});
+	});
+};
