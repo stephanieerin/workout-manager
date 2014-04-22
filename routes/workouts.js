@@ -1,5 +1,7 @@
 var mongo = require('mongodb');
 
+var MongoClient = require('mongodb').MongoClient;
+
 var Server = mongo.Server,
 	Db = mongo.Db,
 	BSON = mongo.BSONPure;
@@ -86,6 +88,19 @@ exports.deleteEntry = function(req, res){
 	});
 };
 
+exports.totalDistance = function(req, res){
+	console.log('Aggregating distances');
+	db.collection('workouts', function(err, collection) {
+		console.log("inside");
+		collection.aggregate(
+				[{
+					$group: { _id: "$type", total: { $sum : "$distance" }}
+				}]
+			, function(err, summary) {
+				return res.send(summary);
+			})
+	});
+}
 
 var populateDB = function() {
 	var workouts = [

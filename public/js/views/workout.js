@@ -30,7 +30,7 @@ window.WorkoutView = Backbone.View.extend({
 	change: function(event){
 		var target = event.target;
 		var change = {};
-		change[target.name] = target.value;
+		change[target.name] = (target.name === "distance")? parseInt(target.value): target.value;
 		this.model.set(change);
 	},
 

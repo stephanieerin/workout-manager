@@ -1,11 +1,9 @@
 var AppRouter = Backbone.Router.extend({
 
 	routes: {
-		//"workouts/:id": viewEntry
 		"workouts/add" : "addWorkout",
 		"workouts" : "list",
-		"workouts/:id" : "viewWorkout",
-		"workouts/metrics" : "viewMetrics"
+		"workouts/:id" : "viewWorkout"
 	},
 
 	initialize: function() {

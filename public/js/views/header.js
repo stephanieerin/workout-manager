@@ -3,7 +3,7 @@ window.HeaderView = Backbone.View.extend({
 	template: _.template(
 		'<a href="#workouts" class="btn btn-primary">List</a>' +
 		'<a href="#workouts/add" class="btn btn-primary">Add</a>'+
-		'<a href="#workouts/metrics" class="btn btn-primary">Metrics</a>'
+		'<a href="#metrics" class="btn btn-primary">Metrics</a>'
 		),
 
 
