@@ -18,6 +18,12 @@ db.open(function(err, db){
 				populateDB();
 			}
 		});
+		db.collection('types', {safe: true}, function(err, collection){
+			if(err) {
+				console.log("The 'types' collection doesn't exist. Creating it with sample data...");
+				populateTypes();
+			}
+		});
 	}
 });
 
@@ -88,31 +94,56 @@ exports.deleteEntry = function(req, res){
 	});
 };
 
-exports.totalDistance = function(req, res){
-	console.log('Aggregating distances');
-	db.collection('workouts', function(err, collection) {
-		console.log("inside");
-		collection.aggregate(
-				[{
-					$group: { _id: "$type", total: { $sum : "$distance" }}
-				}]
-			, function(err, summary) {
-				return res.send(summary);
-			})
+exports.getTypes = function(req, res){
+	db.collection('types', function(err, collection){
+		collection.find().toArray(function(err, items){
+			res.send(items);
+		});
 	});
-}
+};
+
+exports.addType = function(req, res){
+	var type = req.body;
+	console.log('Adding type: ' + JSON.stringify(type));
+	db.collection('types', function(err, collection){
+		collection.insert(type, {safe: true}, function(err, result){
+			if (err) {
+				res.send({'error':'An error has occurred'});
+			} else {
+				console.log('Success: ' + JSON.stringify(result[0]));
+				res.send(result[0]);
+			}
+		});
+	});
+};
+
+
 
 var populateDB = function() {
 	var workouts = [
 	{
-		title: "Monday",
+		distance: 2.3,
+		type: "run"
 	},
 	{
-		title: "Friday Friday Friday",
+		distance: 5.4,
+		type: "hike"
 	}
 	];
 
 	db.collection('workouts', function(err, collection){
 		collection.insert(workouts, {safe:true}, function(err, result){});
+	});
+};
+
+var populateTypes = function() {
+	var types = [
+		{ name: "run"},
+		{ name: "bike"},
+		{ name: "hike"}
+	];
+
+	db.collection("types", function(err, collection){
+		collection.insert(types, {safe:true}, function(err, result){});
 	});
 };

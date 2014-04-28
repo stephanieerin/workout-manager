@@ -21,9 +21,12 @@ Track workouts, stats and metrics about your training and health goals.
 - Views
 - Metrics
 - Stats
+- Form validation
+- Race tagging
 
 ## Possible Improvements
 - Import from CSV, GPX, XML
+- Dynamic types
 
 
 ## More Information

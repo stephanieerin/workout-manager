@@ -18,7 +18,8 @@ app.post('/workouts', entry.addEntry);
 app.put('/workouts/:id', entry.updateEntry);
 app.delete('/workouts/:id', entry.deleteEntry);
 
-app.get('/metrics', entry.totalDistance);
+app.get('/types', entry.getTypes);
+app.post('/types', entry.addType);
 
 http.createServer(app).listen(app.get('port'), function() {
 	console.log("Express server listening on port " + app.get('port'));

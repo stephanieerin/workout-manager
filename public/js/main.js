@@ -3,7 +3,8 @@ var AppRouter = Backbone.Router.extend({
 	routes: {
 		"workouts/add" : "addWorkout",
 		"workouts" : "list",
-		"workouts/:id" : "viewWorkout"
+		"workouts/:id" : "viewWorkout",
+		"metrics" : "viewMetrics"
 	},
 
 	initialize: function() {
@@ -20,14 +21,21 @@ var AppRouter = Backbone.Router.extend({
 
 	addWorkout: function(){
 		var workout = new Workout();
-		$('#container').html(new WorkoutView({model: workout}).el);
+		var types = new TypeCollection();
+		types.fetch({success: function(){
+			$('#container').html(new WorkoutView({model: workout, collection: types}).el);
+		}});
 	},
 
 	viewWorkout: function(id){
 		var workout = new Workout({_id: id});
-		workout.fetch({success: function(){
-			$('#container').html(new WorkoutView({model: workout}).el);
+		var types = new TypeCollection();
+		types.fetch({success: function() {
+			workout.fetch({success: function(){
+			$('#container').html(new WorkoutView({model: workout, collection: types}).el);
+			}});
 		}});
+
 	},
 
 	viewMetrics: function(){
