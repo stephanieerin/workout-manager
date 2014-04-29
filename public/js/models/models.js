@@ -10,12 +10,24 @@ window.Workout = Backbone.Model.extend({
 	defaults: {
 		_id: null,
 		distance: null,
-		type: "",
+		type: "hike",
 		date: "",
-		duration_hour: null,
-		duration_minute: null,
-		duration_second: null,
+		duration: null,
 		temp: null,
+		hr: null,
+		pace: null,
+		calories: null
+	},
+
+	validate: function(attrs, options) {
+		if(!attrs.distance){
+			return "Must provide distance";
+		}
+
+		if(attrs.date === ""){
+			return "Must provide date";
+		}
+
 	}
 });
 

@@ -17,3 +17,8 @@ body {
 	width: 800px;
 	margin: auto;
 }
+
+.table th {
+	cursor: pointer;
+	text-align: center;
+}
