@@ -18,12 +18,6 @@ db.open(function(err, db){
 				populateDB();
 			}
 		});
-		db.collection('types', {safe: true}, function(err, collection){
-			if(err) {
-				console.log("The 'types' collection doesn't exist. Creating it with sample data...");
-				populateTypes();
-			}
-		});
 	}
 });
 

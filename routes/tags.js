@@ -85,6 +85,6 @@ var populateTags = function() {
 	];
 
 	db.collection("tags", function(err, collection){
-		collection.insert(types, {safe:true}, function(err, result){});
+		collection.insert(tags, {safe:true}, function(err, result){});
 	});
 };
