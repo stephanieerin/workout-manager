@@ -94,31 +94,6 @@ exports.deleteEntry = function(req, res){
 	});
 };
 
-exports.getTypes = function(req, res){
-	db.collection('types', function(err, collection){
-		collection.find().toArray(function(err, items){
-			res.send(items);
-		});
-	});
-};
-
-exports.addType = function(req, res){
-	var type = req.body;
-	console.log('Adding type: ' + JSON.stringify(type));
-	db.collection('types', function(err, collection){
-		collection.insert(type, {safe: true}, function(err, result){
-			if (err) {
-				res.send({'error':'An error has occurred'});
-			} else {
-				console.log('Success: ' + JSON.stringify(result[0]));
-				res.send(result[0]);
-			}
-		});
-	});
-};
-
-
-
 var populateDB = function() {
 	var workouts = [
 	{
@@ -133,17 +108,5 @@ var populateDB = function() {
 
 	db.collection('workouts', function(err, collection){
 		collection.insert(workouts, {safe:true}, function(err, result){});
-	});
-};
-
-var populateTypes = function() {
-	var types = [
-		{ name: "run"},
-		{ name: "bike"},
-		{ name: "hike"}
-	];
-
-	db.collection("types", function(err, collection){
-		collection.insert(types, {safe:true}, function(err, result){});
 	});
 };
